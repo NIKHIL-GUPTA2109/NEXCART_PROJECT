@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Order Confirmed</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/order_confirmation.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="confirmation-container">
+
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>
+            Order Placed Successfully
+        </h1>
+
+        <p class="thank-you">
+            Thank you {{ request.user.username }} for shopping with us!
+        </p>
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="summary-box">
+
+            <h2>
+                📦 Order Summary
+            </h2>
+
+            <p>
+                <strong>Order ID:</strong>
+                #{{ order.id }}
+            </p>
+
+            <p>
+                <strong>Date:</strong>
+                {{ order.created_at }}
+            </p>
+
+            <p>
+                <strong>Total Amount:</strong>
+                ₹{{ order.total_price }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                Confirmed ✅
+            </p>
+
+        </div>
+
+        <!-- PRODUCTS -->
+
+        <div class="products-box">
+
+            <h2>
+                🛍 Purchased Items
+            </h2>
+
+            {% for item in order_items %}
+
+            <div class="product-row">
+
+                <img
+                    src="{{ item.product.image.url }}"
+                    alt="{{ item.product.name }}"
+                >
+
+                <div>
+
+                    <h4>
+                        {{ item.product.name }}
+                    </h4>
+
+                    <p>
+                        Qty: {{ item.quantity }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- STATUS TRACKER -->
+
+        <div class="tracker">
+
+            <div class="step active">
+                ✓ Order Placed
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step">
+                Processing
+            </div>
+
+            <div class="line"></div>
+
+            <div class="step">
+                Delivered
+            </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="actions">
+
+            <a
+                href="{% url 'order_detail' order.id %}"
+                class="btn primary"
+            >
+                View Order
+            </a>
+
+            <a
+                href="{% url 'order_history' %}"
+                class="btn secondary"
+            >
+                My Orders
+            </a>
+
+            <a
+                href="{% url 'product_list' %}"
+                class="btn dark"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

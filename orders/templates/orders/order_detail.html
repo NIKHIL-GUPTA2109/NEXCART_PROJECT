@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Order Details</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/order_detail.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <a
+            href="{% url 'order_history' %}"
+            class="back-btn"
+        >
+            ← All Orders
+        </a>
+
+        <h1>
+            Order #{{ order.id }}
+        </h1>
+
+    </div>
+
+    <!-- ORDER SUMMARY -->
+
+    <div class="summary-card">
+
+        <div class="summary-left">
+
+            <h2>📦 Order Summary</h2>
+
+            <p>
+                <strong>Date:</strong>
+                {{ order.created_at }}
+            </p>
+
+            <p>
+                <strong>Total:</strong>
+                ₹{{ order.total_price }}
+            </p>
+
+            {% if order.is_cancelled %}
+
+                <span class="status cancelled">
+                    Cancelled
+                </span>
+
+            {% else %}
+
+                <span class="status active">
+                    Active
+                </span>
+
+            {% endif %}
+
+        </div>
+
+        <div class="summary-right">
+
+            <div class="tracker">
+
+                <div class="step active">
+                    ✓ Ordered
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    Processing
+                </div>
+
+                <div class="line"></div>
+
+                <div class="step">
+                    Delivered
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PRODUCTS -->
+
+    <h2 class="section-title">
+        🛍 Ordered Items
+    </h2>
+
+    {% for item in order_items %}
+
+    <div class="product-card">
+
+        <img
+            src="{{ item.product.image.url }}"
+            alt="{{ item.product.name }}"
+        >
+
+        <div class="product-info">
+
+            <h3>
+                {{ item.product.name }}
+            </h3>
+
+            <p>
+                Quantity:
+                <strong>{{ item.quantity }}</strong>
+            </p>
+
+            <p>
+                Price:
+                <strong>₹{{ item.price }}</strong>
+            </p>
+
+          
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+    <!-- TOTAL -->
+
+    <div class="total-box">
+
+        Grand Total:
+        ₹{{ order.total_price }}
+
+    </div>
+
+    <!-- ACTIONS -->
+
+    <div class="actions">
+
+        {% if not order.is_cancelled %}
+
+        <a
+            href="{% url 'cancel_order' order.id %}"
+            class="cancel-btn"
+        >
+            Cancel Order
+        </a>
+
+        {% endif %}
+
+        <a
+            href="{% url 'product_list' %}"
+            class="shop-btn"
+        >
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

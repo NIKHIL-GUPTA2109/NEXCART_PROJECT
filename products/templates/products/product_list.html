@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Product List</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="page-header">
+
+    <a href="{% url 'home' %}" class="back-btn">
+        ← Home
+    </a>
+
+    <h1 class="page-title">
+        All Exclusive Products
+    </h1>
+     <div class="right-actions">
+        <a href="{% url 'wishlist' %}" class="back-btn">
+        My Wishlist
+    </a>
+
+        <a href="{% url 'order_history' %}" class="back-btn">
+            📦 Orders
+        </a>
+
+        <a href="{% url 'cart' %}" class="back-btn">
+            🛒 Cart
+        </a>
+
+    </div>
+    <div class="header-spacer"></div>
+
+</div>
+<div class="product-toolbar">
+
+    <form method="GET" class="search-form">
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request.GET.search }}"
+            placeholder="🔍 Search products..."
+            class="search-box"
+        >
+
+        <button type="submit" class="search-btn">
+            Search
+        </button>
+        <select name="sort" class="sort-box" onchange="this.form.submit()">
+
+         <option value="">Sort By</option>
+
+    <option value="low"
+        {% if request.GET.sort == 'low' %}selected{% endif %}>
+        Price Low To High
+    </option>
+
+    <option value="high"
+        {% if request.GET.sort == 'high' %}selected{% endif %}>
+        Price High To Low
+    </option>
+
+    <option value="new"
+        {% if request.GET.sort == 'new' %}selected{% endif %}>
+        Newest
+    </option>
+
+    </select>
+    </form>
+
+    
+
+</div>
+
+<p class="product-count">
+    {{ products.count }} Products Found
+</p>
+
+<div class="products-grid">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+   <a
+    href="{% url 'add_to_wishlist' product.id %}"
+    class="wishlist-btn" style="text-decoration: none;"
+>
+    ❤️ Wishlist
+</a>
+
+        <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+            class="product-image"
+        >
+
+        <div class="product-info">
+
+            <h3>{{ product.name }}</h3>
+
+            <p class="description">
+                {{ product.description|truncatechars:60 }}
+            </p>
+
+            <p class="price">
+                ₹{{ product.price }}
+            </p>
+
+            {% if product.stock > 0 %}
+                <p class="stock in-stock">
+                    Available In Stock
+                </p>
+            {% else %}
+                <p class="stock out-stock">
+                    Out Of Stock
+                </p>
+            {% endif %}
+
+            <div class="product-actions">
+
+                <a
+                    href="{% url 'add_to_cart' product.id %}"
+                    class="cart-btn" style="text-decoration: none;"
+                >
+                    Add To Cart
+                </a>
+
+                <a
+                    href="{% url 'product_detail' product.id %}"
+                    class="details-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+        
+    </body>
+</html>

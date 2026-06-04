@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>My Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/profile.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="profile-container">
+
+    <h1 class="welcome-title">
+        Welcome Back, {{ request.user.username }} 👋
+    </h1>
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+            {{ request.user.username|first|upper }}
+        </div>
+
+        <h2>
+            {{ request.user.username }}
+        </h2>
+
+        <p>
+            📧 {{ request.user.email }}
+        </p>
+
+        <p>
+            📅 Joined
+            {{ request.user.date_joined|date:"d M Y" }}
+        </p>
+
+    </div>
+
+    <div class="stats-container">
+
+        <div class="stat-card">
+
+            <h3>
+                {{ order_count }}
+            </h3>
+
+            <p>
+                Orders
+            </p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>
+                {{ review_count }}
+            </h3>
+
+            <p>
+                Reviews
+            </p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>
+                {{ wishlist_count }}
+            </h3>
+
+            <p>
+                Wishlist
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="profile-actions">
+
+        <a href="#">
+            👤 Edit Profile
+        </a>
+
+        <a href="{% url 'password_reset' %}">
+            🔒 Change Password
+        </a>
+
+        <a href="{% url 'order_history' %}">
+            📦 My Orders
+        </a>
+
+        <a href="{% url 'wishlist' %}">
+            ❤️ Wishlist
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

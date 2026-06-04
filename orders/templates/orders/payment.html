@@ -1,0 +1,57 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<button id="rzp-button">
+    Pay Now
+</button>
+
+<script>
+
+var options = {
+
+    key: "{{ razorpay_key }}",
+
+    amount: "{{ amount }}",
+
+    currency: "INR",
+
+    name: "NexCart",
+
+    description: "Order Payment",
+
+    order_id: "{{ razorpay_order_id }}",
+
+    handler: function(response){
+
+        window.location.href =
+        "/orders/payment-success/?payment_id=" +
+        response.razorpay_payment_id;
+
+    }
+    
+
+};
+
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button').onclick = function(e){
+
+    rzp1.open();
+
+    e.preventDefault();
+
+}
+
+</script>
+<div class="payment-container">
+
+    <div class="payment-card">
+
+        <h1>💳{{user.username}} Please Complete Your Payment!</h1>
+
+
+
+        
+
+    </div>
+
+</div>

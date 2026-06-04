@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Shopping Cart</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/cart.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="cart-wrapper">
+
+    <h1 class="page-title">
+        🛒 {{ user.username }}'s Shopping Cart
+    </h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if cart_items %}
+
+    <div class="cart-container">
+
+        <div class="cart-items">
+
+            {% for item in cart_items %}
+
+            <div class="cart-card">
+
+                <div class="product-image">
+
+                    <img
+                        src="{{ item.product.image.url }}"
+                        alt="{{ item.product.name }}"
+                    >
+
+                </div>
+
+                <div class="product-details">
+
+                    <h2>{{ item.product.name }}</h2>
+
+                    <p class="price">
+                        ₹{{ item.product.price }}
+                    </p>
+
+                    <div class="quantity-box">
+
+    <a href="{% url 'decrease_quantity' item.product.id %}">
+        <button class="qty-btn">
+            -
+        </button>
+    </a>
+
+    <span class="qty-number">
+        {{ item.quantity }}
+    </span>
+
+    {% if item.quantity < item.product.stock %}
+
+        <a href="{% url 'increase_quantity' item.product.id %}">
+            <button class="qty-btn">
+                +
+            </button>
+        </a>
+
+    {% else %}
+
+        <button
+            class="qty-btn disabled"
+            disabled
+        >
+            +
+        </button>
+
+    {% endif %}
+
+</div>
+
+                    <p class="subtotal">
+                        Subtotal:
+                        <strong>
+                            ₹{{ item.total_price }}
+                        </strong>
+                    </p>
+
+                {% if item.product.stock <= 0 %}
+
+    <span class="stock-badge out-stock">
+        Out Of Stock
+    </span>
+
+{% elif item.quantity >= item.product.stock %}
+
+    <span class="stock-badge low-stock">
+        Stock Limit Reached
+    </span>
+
+{% else %}
+
+    <span class="stock-badge in-stock">
+        In Stock
+    </span>
+
+{% endif %}
+
+                    <div class="action-buttons">
+
+    <a href="{% url 'remove_from_cart' item.product.id %}">
+        <button class="remove-btn">
+            Remove Item
+        </button>
+    </a>
+
+</div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="cart-summary">
+
+            <h2>Order Summary</h2>
+
+            <hr>
+
+            <p>
+                Total Items
+                <span>{{ cart_items|length }}</span>
+            </p>
+
+            <p class="total-row">
+                Grand Total
+                <span>
+                    ₹{{ total_price }}
+                </span>
+            </p>
+            <a href="{% url 'checkout' %}">
+            <button class="checkout-btn">
+                Proceed To Checkout
+            </button>
+            </a>
+            <a href="{% url 'product_list' %}">
+    <button class="continue-shopping-btn">
+        ← Add More Products
+    </button>
+</a>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-cart">
+
+        <h2>Your Cart Is Empty 😔</h2>
+
+        <p>
+            Looks like you haven't added any products yet.
+        </p>
+
+        <a href="{% url 'product_list' %}">
+            <button class="shop-btn">
+                Continue Shopping
+            </button>
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

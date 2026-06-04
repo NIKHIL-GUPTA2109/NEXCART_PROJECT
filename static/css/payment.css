@@ -1,0 +1,46 @@
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#f5f7fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.payment-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    min-width:400px;
+}
+
+.payment-card h1{
+    margin-bottom:20px;
+    color:#333;
+}
+
+.payment-card p{
+    font-size:20px;
+    margin-bottom:25px;
+}
+
+.pay-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#3399cc;
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.pay-btn:hover{
+    transform:translateY(-2px);
+    background:#2684b8;
+}

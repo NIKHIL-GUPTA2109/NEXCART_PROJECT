@@ -1,0 +1,224 @@
+body{
+
+    margin:0;
+
+    background:#f4f6f9;
+
+    font-family:Arial,sans-serif;
+}
+
+.confirmation-container{
+
+    width:90%;
+
+    max-width:1000px;
+
+    margin:40px auto;
+}
+
+.success-card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+.success-icon{
+
+    text-align:center;
+
+    font-size:80px;
+
+    color:green;
+}
+
+.success-card h1{
+
+    text-align:center;
+
+    margin-bottom:10px;
+}
+
+.thank-you{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:30px;
+}
+
+/* SUMMARY */
+
+.summary-box{
+
+    background:#f8fafc;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    margin-bottom:30px;
+}
+
+.summary-box h2{
+
+    margin-top:0;
+}
+
+/* PRODUCTS */
+
+.products-box{
+
+    margin-bottom:35px;
+}
+
+.product-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #eee;
+}
+
+.product-row img{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+}
+
+/* TRACKER */
+
+.tracker{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin:40px 0;
+}
+
+.step{
+
+    padding:10px 15px;
+
+    border-radius:20px;
+
+    background:#e5e7eb;
+
+    font-weight:600;
+}
+
+.active{
+
+    background:#16a34a;
+
+    color:white;
+}
+
+.line{
+
+    width:60px;
+
+    height:4px;
+
+    background:#d1d5db;
+}
+
+/* BUTTONS */
+
+.actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.btn{
+
+    padding:14px 24px;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+.primary{
+
+    background:#2563eb;
+
+    color:white;
+}
+
+.secondary{
+
+    background:#10b981;
+
+    color:white;
+}
+
+.dark{
+
+    background:#111827;
+
+    color:white;
+}
+
+.btn:hover{
+
+    opacity:.9;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .success-card{
+
+        padding:25px;
+    }
+
+    .tracker{
+
+        flex-direction:column;
+
+        gap:10px;
+    }
+
+    .line{
+
+        width:4px;
+
+        height:30px;
+    }
+
+    .product-row{
+
+        flex-direction:column;
+
+        text-align:center;
+    }
+}

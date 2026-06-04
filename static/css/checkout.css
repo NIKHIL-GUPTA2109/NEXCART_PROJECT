@@ -1,0 +1,211 @@
+body{
+
+    margin:0;
+
+    background:#f5f7fb;
+
+    font-family:Arial,sans-serif;
+}
+
+.checkout-container{
+
+    width:90%;
+
+    max-width:1400px;
+
+    margin:40px auto;
+}
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+}
+
+.back-btn{
+
+    background:#111827;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    font-weight:600;
+}
+
+.checkout-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr;
+
+    gap:30px;
+}
+
+/* LEFT CARD */
+
+.checkout-form-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 6px 18px rgba(0,0,0,.08);
+}
+
+.form-group{
+
+    margin-bottom:20px;
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:600;
+}
+
+.form-group input,
+.form-group textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    box-sizing:border-box;
+}
+
+.row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+}
+
+.payment-options{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    margin:20px 0;
+}
+
+.place-order-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    background:#ff9900;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    border-radius:12px;
+
+    cursor:pointer;
+}
+
+.place-order-btn:hover{
+
+    background:#e68a00;
+}
+
+/* RIGHT CARD */
+
+.summary-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    height:fit-content;
+
+    box-shadow:
+    0 6px 18px rgba(0,0,0,.08);
+}
+
+.summary-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+}
+
+.summary-item p{
+
+    margin:5px 0 0;
+
+    color:#666;
+}
+
+.grand-total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:1.4rem;
+
+    margin-top:20px;
+
+    color:#ff9900;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .checkout-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .row{
+
+        grid-template-columns:1fr;
+    }
+
+    .page-header{
+
+        flex-direction:column;
+
+        gap:15px;
+    }
+}

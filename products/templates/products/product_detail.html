@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Product Detail</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="product-detail-container">
+
+    <div class="product-image-section">
+
+        <img
+            src="{{ product.image.url }}"
+            alt="{{ product.name }}"
+        >
+
+    </div>
+
+    <div class="product-info-section">
+
+        <h1>{{ product.name }}</h1>
+
+        <p class="price">
+            ₹{{ product.price }}
+        </p>
+
+        {% if product.stock > 0 %}
+
+            <p class="stock in-stock">
+                ✔ In Stock ({{ product.stock }} Available)
+            </p>
+
+        {% else %}
+
+            <p class="stock out-stock">
+                ✖ Out Of Stock
+            </p>
+
+        {% endif %}
+
+        <div class="description">
+
+            <h3>Product Description</h3>
+
+            <p>
+                {{ product.description }}
+            </p>
+
+            
+        </div>
+        <hr>
+
+<div class="action-buttons">
+
+    <a href="{% url 'add_to_cart' product.id %}">
+        <button
+            class="cart-btn"
+            {% if product.stock <= 0 %}disabled{% endif %}
+        >
+            Add To Cart
+        </button>
+    </a>
+
+    <a href="{% url 'buy_now' product.id %}">
+    <button
+        class="buy-btn"
+        {% if product.stock <= 0 %}disabled{% endif %}
+    >
+        Buy Now
+    </button>
+</a>
+
+</div>
+        <a
+            href="{% url 'product_list' %}"
+            class="back-link"
+        >
+            ← Back To Products
+        </a>
+
+    </div>
+
+</div>
+
+        <script src="" async defer></script>
+        <section class="review-section">
+
+    
+
+
+    <h2>⭐ Customer Reviews</h2>
+
+    {% if average_rating %}
+        <p class="average-rating">
+            Average Rating:
+            <strong>
+                {{ average_rating|floatformat:1 }}/5 ⭐
+            </strong>
+        </p>
+    {% else %}
+        <p>
+            No ratings yet.
+        </p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+
+    <div class="review-form-container">
+
+        <h3>
+            Write A Review
+        </h3>
+
+        <form
+            method="post"
+            action="{% url 'add_review' product.id %}"
+        >
+
+            {% csrf_token %}
+
+           <div class="review-form-container">
+
+    <form method="post" action="{% url 'add_review' product.id %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label>Rating</label>
+            {{ review_form.rating }}
+        </div>
+
+        <div class="form-group">
+            <label>Your Review</label>
+            {{ review_form.comment }}
+        </div>
+
+        <button type="submit" class="review-btn">
+            ⭐ Submit Review
+        </button>
+
+    </form>
+
+</div>
+{% endif%}
+    <hr>
+
+{% if reviews %}
+
+    {% for review in reviews %}
+
+        <div class="review-card">
+
+            <div class="review-header">
+
+                <strong>
+                    {{ review.user.username }}
+                </strong>
+
+                <span class="review-rating">
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %}
+                            ⭐
+                        {% endif %}
+                    {% endfor %}
+                </span>
+
+            </div>
+
+            <p class="review-comment">
+                {{ review.comment }}
+            </p>
+
+            <small>
+                {{ review.created_at|date:"d M Y" }}
+            </small>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+<p>
+    No reviews yet. Be the first to review this product.
+</p>
+
+{% endif %}
+
+</section>
+    </body>
+</html>

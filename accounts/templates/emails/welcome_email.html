@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        body{
+            font-family:Arial,sans-serif;
+            background:#f4f6f9;
+            padding:20px;
+        }
+
+        .container{
+            max-width:600px;
+            margin:auto;
+            background:white;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,.1);
+        }
+
+        .header{
+            background:#ff9900;
+            color:white;
+            text-align:center;
+            padding:25px;
+        }
+
+        .content{
+            padding:30px;
+            color:#333;
+        }
+
+        .footer{
+            text-align:center;
+            padding:20px;
+            background:#f8f8f8;
+            color:#666;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:12px 20px;
+            background:#ff9900;
+            color:white !important;
+            text-decoration:none;
+            border-radius:6px;
+            margin-top:15px;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🛍 Welcome To NexCart</h1>
+
+    </div>
+
+    <div class="content">
+
+        <h2>Hello {{ user.username }},</h2>
+
+        <p>
+            Thank you for creating your account with NexCart.
+        </p>
+
+        <p>
+            You can now:
+        </p>
+
+        <ul>
+            <li>🛒 Shop Premium Products</li>
+            <li>❤️ Save Products To Wishlist</li>
+            <li>📦 Track Orders</li>
+            <li>⚡ Enjoy Fast Checkout</li>
+        </ul>
+
+        <a href="http://127.0.0.1:8000/" class="btn">
+            Start Shopping
+        </a>
+
+    </div>
+
+    <div class="footer">
+
+        © 2026 NexCart<br>
+        The Next Era Of Shopping
+
+    </div>
+
+</div>
+
+</body>
+</html>

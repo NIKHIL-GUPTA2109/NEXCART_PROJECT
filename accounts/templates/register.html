@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create NexCart Account</title>
+
+
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+
+</head>
+<body>
+
+<div class="register-container">
+
+    <div class="logo">
+        <h1>Nex<span>Cart</span></h1>
+    </div>
+
+    <div class="register-card">
+
+        <h2>Create Account</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="register-btn">
+                Create Account
+            </button>
+        </form>
+
+        <hr>
+
+        <p class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">
+                Sign In
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
