@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-1=l!md@e_1l*d*k2q*5ia!b)hawaqr8d9brw=cyk+=^zfkju3m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+
+
+
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "127.0.0.1,localhost,nexcart-project-main-21d321c.kuberns.cloud"
+).split(",")
 
 
 # Application definition
