@@ -11,5 +11,6 @@ urlpatterns = [
     'payment-success/',
     views.payment_success,
     name='payment_success'
-)
+),
+path("contact-us/", views.contact_us, name="contact_us"),
 ]

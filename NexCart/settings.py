@@ -130,8 +130,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = 'login'
 
-RAZORPAY_KEY_ID = "rzp_test_Sws9uViUVVELYx"
-RAZORPAY_KEY_SECRET = "p1PZYq9c0obszU0aM0ajDE0K"
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 #Email Backend
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -141,6 +145,6 @@ EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'nikhilgupta002109@gmail.com'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
-EMAIL_HOST_PASSWORD = 'bmxd vvnj ebrt weye'

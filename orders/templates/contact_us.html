@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us | NexCart</title>
+    <style>
+        body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f4f6f9;
+}
+
+.contact-container{
+    max-width:900px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.contact-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.contact-header h1{
+    font-size:3rem;
+    margin-bottom:10px;
+    color:#111827;
+}
+
+.contact-header p{
+    color:#6b7280;
+    font-size:1.1rem;
+}
+
+.contact-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.contact-item{
+    margin-bottom:30px;
+}
+
+.contact-item h3{
+    color:#2563eb;
+    margin-bottom:10px;
+    font-size:1.3rem;
+}
+
+.contact-item p{
+    font-size:1.1rem;
+    color:#374151;
+}
+
+.home-btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:12px 25px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.home-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<div class="contact-container">
+
+    <h1>Contact NexCart Team</h1>
+
+    <p>
+        Have questions, suggestions, or need support?
+        We'd love to hear from you.
+    </p>
+
+    <div class="contact-card">
+
+        <h3>📧 Email</h3>
+        <p>support@nexcart.com</p>
+
+        <h3>📞 Phone</h3>
+        <p>+91 9876543210</p>
+
+        <h3>📍 Address</h3>
+        <p>Gurgaon, Haryana, India</p>
+
+    </div>
+
+    <a href="{% url 'home' %}" class="home-btn">
+        Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>

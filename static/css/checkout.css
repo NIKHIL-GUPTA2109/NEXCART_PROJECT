@@ -189,23 +189,136 @@ body{
 }
 
 /* MOBILE */
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:992px){
+
+    .checkout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary-card{
+        order:-1;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:768px){
 
-    .checkout-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .row{
-
-        grid-template-columns:1fr;
+    .checkout-container{
+        width:95%;
+        margin:20px auto;
     }
 
     .page-header{
-
         flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
 
+    .page-header h1{
+        font-size:1.8rem;
+        line-height:1.3;
+    }
+
+    .checkout-form-card,
+    .summary-card{
+        padding:20px;
+    }
+
+    .row{
+        grid-template-columns:1fr;
         gap:15px;
     }
+
+    .form-group input,
+    .form-group textarea{
+        font-size:16px; /* Prevent iPhone zoom */
+    }
+
+    .summary-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:5px;
+    }
+
+    .grand-total{
+        font-size:1.2rem;
+    }
+
+    .back-btn{
+        width:100%;
+        text-align:center;
+        box-sizing:border-box;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:480px){
+
+    .checkout-container{
+        width:98%;
+    }
+
+    .checkout-form-card,
+    .summary-card{
+        padding:15px;
+        border-radius:15px;
+    }
+
+    .page-header h1{
+        font-size:1.5rem;
+    }
+
+    .place-order-btn{
+        padding:14px;
+        font-size:15px;
+    }
+
+    .grand-total{
+        font-size:1.1rem;
+    }
+
+}
+@media (max-width: 768px){
+
+    .checkout-grid{
+        display:flex !important;
+        flex-direction:column !important;
+    }
+
+    .summary-card{
+        width:100%;
+    }
+
+    .checkout-form-card{
+        width:100%;
+    }
+
+}
+@media (max-width:768px){
+
+    .page-header{
+        flex-direction:column;
+        text-align:center;
+        gap:15px;
+    }
+
+    .back-btn{
+        width:100%;
+        text-align:center;
+        box-sizing:border-box;
+    }
+
 }
