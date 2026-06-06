@@ -37,10 +37,10 @@ def register(request):
                     html_content,
                     "text/html"
                 )
-
-                email.send()
-            
+                # actually send the email
+                # email.send()
             except Exception as e:
+                # log/email errors shouldn't break registration
                 print(f"Email Error: {e}")
 
             return redirect('login')

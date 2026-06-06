@@ -224,7 +224,7 @@ def checkout(request):
          "text/html"
          )
 
-        email.send()
+        # email.send()
         del request.session['buy_now_product_id']
 
         return redirect(
@@ -310,7 +310,7 @@ def checkout(request):
     "text/html"
     )
 
-    email.send()
+    # email.send()
 
     return redirect(
         'order_confirmation',
@@ -572,7 +572,7 @@ def payment_success(request):
     "text/html"
     )
 
-    email.send()
+    # email.send()
 
     
 
