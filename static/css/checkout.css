@@ -1,9 +1,21 @@
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#111827;
+}
+
+.dark-theme{
+--bg:#121212;
+--card:#1f1f1f;
+--text:#f5f5f5;
+--nav:#0d1117;
+--accent:#ff9900;
+--shadow:0 4px 15px rgba(255,255,255,.05);
+}
 body{
-
     margin:0;
-
-    background:#f5f7fb;
-
+    background:var(--bg);
+    color:var(--text);
     font-family:Arial,sans-serif;
 }
 
@@ -55,7 +67,7 @@ body{
 
 .checkout-form-card{
 
-    background:white;
+    background:var(--card);
 
     padding:30px;
 
@@ -143,7 +155,7 @@ body{
 
 .summary-card{
 
-    background:white;
+    background:var(--card);
 
     padding:25px;
 
@@ -291,6 +303,41 @@ body{
     }
 
 }
+.page-header h1,
+.checkout-form-card h2,
+.checkout-form-card h3,
+.summary-card h2{
+    color:var(--text);
+}
+
+.dark-theme .checkout-form-card,
+.dark-theme .summary-card{
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.dark-theme .form-group input,
+.dark-theme .form-group textarea{
+    background:#2a2a2a;
+    color:#f5f5f5;
+    border:1px solid #444;
+}
+
+.dark-theme .form-group input::placeholder,
+.dark-theme .form-group textarea::placeholder{
+    color:#aaa;
+}
+
+.dark-theme .payment-options{
+    color:#f5f5f5;
+}
+
+.dark-theme .summary-item p{
+    color:#d1d5db;
+}
+
+.dark-theme hr{
+    border-color:#444;
+}
 @media (max-width: 768px){
 
     .checkout-grid{
@@ -322,3 +369,6 @@ body{
     }
 
 }
+
+
+
