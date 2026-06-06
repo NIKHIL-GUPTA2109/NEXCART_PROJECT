@@ -40,12 +40,13 @@ def register(request):
 
             try:
                 email.send()
+                print("EMAIL SENT")
             except Exception as e:
-                print(e)
+                print("EMAIL ERROR:", e)
 
             return redirect('login')
-    else:
-        form=RegisterForm()
+        else:
+            form=RegisterForm()
 
     return render(request,'register.html',{'form':form})
     
