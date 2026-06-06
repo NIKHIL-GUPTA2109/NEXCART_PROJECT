@@ -1,3 +1,5 @@
+import email
+
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
@@ -38,12 +40,12 @@ def register(request):
                 "text/html"
             )
 
-            # try:
-            #     email.send()
-            #     print("EMAIL SENT")
-            # except Exception as e:
-            #     print("EMAIL ERROR:", e)
-            print("#EMAIL SKIPPED #")
+            try:
+                email.send()
+                print("EMAIL SENT")
+            except Exception as e:
+                print("EMAIL ERROR:", repr(e))
+
             return redirect('login')
     else:
         form=RegisterForm()
