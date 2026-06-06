@@ -45,8 +45,8 @@ def register(request):
                 print("EMAIL ERROR:", e)
 
             return redirect('login')
-        else:
-            form=RegisterForm()
+    else:
+        form=RegisterForm()
 
     return render(request,'register.html',{'form':form})
     
