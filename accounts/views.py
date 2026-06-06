@@ -16,11 +16,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 # Create your views here.
 def register(request):
-    if request.method=='POST':
-        form=RegisterForm(request.POST)
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
         if form.is_valid():
-            
+
             user = form.save()
+
             html_content = render_to_string(
                 'emails/welcome_email.html',
                 {
@@ -47,10 +49,11 @@ def register(request):
                 print("EMAIL ERROR:", repr(e))
 
             return redirect('login')
-    else:
-        form=RegisterForm()
 
-    return render(request,'register.html',{'form':form})
+    else:
+        form = RegisterForm()
+
+    return render(request, 'register.html', {'form': form})
     
 def login_view(request):
     if request.method=='POST':
