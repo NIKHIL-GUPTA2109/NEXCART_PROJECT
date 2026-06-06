@@ -1,5 +1,3 @@
-import email
-
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
@@ -20,33 +18,30 @@ def register(request):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
-
             user = form.save()
 
-            html_content = render_to_string(
-                'emails/welcome_email.html',
-                {
-                    'user': user
-                }
-            )
-
-            email = EmailMultiAlternatives(
-                subject='🎉 Welcome To NexCart',
-                body='Welcome To NexCart',
-                from_email=settings.EMAIL_HOST_USER,
-                to=[user.email]
-            )
-
-            email.attach_alternative(
-                html_content,
-                "text/html"
-            )
-
             try:
+                html_content = render_to_string(
+                    'emails/welcome_email.html',
+                    {'user': user}
+                )
+
+                email = EmailMultiAlternatives(
+                    subject='🎉 Welcome To NexCart',
+                    body='Welcome To NexCart',
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[user.email]
+                )
+
+                email.attach_alternative(
+                    html_content,
+                    "text/html"
+                )
+
                 email.send()
-                print("EMAIL SENT")
+            
             except Exception as e:
-                print("EMAIL ERROR:", repr(e))
+                print(f"Email Error: {e}")
 
             return redirect('login')
 
