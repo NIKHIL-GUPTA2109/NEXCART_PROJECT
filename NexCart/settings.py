@@ -155,7 +155,8 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
-
+print("EMAIL_HOST_USER =", EMAIL_HOST_USER)
+print("EMAIL_HOST_PASSWORD EXISTS =", bool(EMAIL_HOST_PASSWORD))
 #whitenoise settings
 # STORAGES = {
 #     "staticfiles": {

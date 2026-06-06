@@ -38,7 +38,10 @@ def register(request):
                 "text/html"
             )
 
-            # email.send()
+            try:
+                email.send()
+            except Exception as e:
+                print(e)
 
             return redirect('login')
     else:
