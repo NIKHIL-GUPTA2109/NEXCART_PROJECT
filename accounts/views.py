@@ -38,7 +38,7 @@ def register(request):
                 "text/html"
             )
 
-            email.send()
+            # email.send()
 
             return redirect('login')
     else:
