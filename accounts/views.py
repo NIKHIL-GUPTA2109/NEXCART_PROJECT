@@ -38,12 +38,12 @@ def register(request):
                 "text/html"
             )
 
-            try:
-                email.send()
-                print("EMAIL SENT")
-            except Exception as e:
-                print("EMAIL ERROR:", e)
-
+            # try:
+            #     email.send()
+            #     print("EMAIL SENT")
+            # except Exception as e:
+            #     print("EMAIL ERROR:", e)
+            print("#EMAIL SKIPPED #")
             return redirect('login')
     else:
         form=RegisterForm()
