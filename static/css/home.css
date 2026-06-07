@@ -461,24 +461,23 @@ padding:25px;
         gap:12px;
     }
 
+   @media (max-width:768px){
+
     .hero{
-        height:500px;
-        padding:20px;
+        height: 500px;
+
+        background-position: center center;
+        background-size: 180%;
     }
-    .hero-content{
-    max-width:90%;
-    padding:0 15px;
-}
 
     .hero-content h1{
-        font-size:2.2rem;
-        line-height:1.2;
+        font-size: 2rem;
     }
 
     .hero-content p{
-        font-size:1rem;
-        margin-bottom:25px;
+        font-size: .95rem;
     }
+}
 
     .hero-btn{
         padding:12px 24px;
@@ -531,26 +530,35 @@ padding:25px;
 /* =========================
    SMALL PHONES
 ========================= */
-
-@media (max-width:480px){
+@media (max-width:768px){
 
     .hero{
-        height:450px;
+
+        height:650px;
+
+        background:
+            linear-gradient(
+                rgba(0,0,0,.55),
+                rgba(0,0,0,.55)
+            ),
+            url('/static/images/hero-mobile.png');
+
+        background-size:cover;
+        background-position:center;
+        background-repeat:no-repeat;
+    }
+
+    .hero-content{
+        max-width:90%;
+        padding:0 15px;
     }
 
     .hero-content h1{
-        font-size:1.8rem;
+        font-size:2rem;
+        line-height:1.2;
     }
 
     .hero-content p{
-        font-size:0.9rem;
-    }
-
-    .search-btn{
-        min-width:80px;
-    }
-
-    .brand-logo{
-        font-size:1.5rem;
+        font-size:1rem;
     }
 }
