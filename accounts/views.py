@@ -38,7 +38,7 @@ def register(request):
                     "text/html"
                 )
                 # actually send the email
-                email.send()
+                # email.send()
             except Exception as e:
                 # log/email errors shouldn't break registration
                 print(f"Email Error: {e}")
