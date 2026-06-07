@@ -118,3 +118,80 @@ def send_order_confirmation_email(user, order):
         )
 
         raise
+
+
+def send_password_reset_email(
+    user,
+    reset_link
+):
+
+    configuration = Configuration()
+    configuration.api_key['api-key'] = settings.BREVO_API_KEY
+
+    api_instance = TransactionalEmailsApi(
+        ApiClient(configuration)
+    )
+
+    html_content = f"""
+    <html>
+    <body>
+
+        <h2>Hello {user.username} 👋</h2>
+
+        <p>
+            We received a request to reset your NexCart password.
+        </p>
+
+        <p>
+            Click the button below:
+        </p>
+
+        <p>
+            <a
+                href="{reset_link}"
+                style="
+                background:#2563eb;
+                color:white;
+                padding:12px 20px;
+                text-decoration:none;
+                border-radius:8px;"
+            >
+                Reset Password
+            </a>
+        </p>
+
+        <p>
+            If you didn't request this,
+            simply ignore this email.
+        </p>
+
+        <br>
+
+        <p>
+            Team NexCart 🚀
+        </p>
+
+    </body>
+    </html>
+    """
+
+    email = SendSmtpEmail(
+
+        sender={
+            "name": "NexCart",
+            "email": "nikhilgupta002109@gmail.com"
+        },
+
+        to=[
+            {
+                "email": user.email,
+                "name": user.username
+            }
+        ],
+
+        subject="🔐 Reset Your NexCart Password",
+
+        html_content=html_content
+    )
+
+    api_instance.send_transac_email(email)

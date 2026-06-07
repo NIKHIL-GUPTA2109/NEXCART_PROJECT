@@ -14,6 +14,20 @@ from orders.models import Order
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from utils.email_service import send_welcome_email
+from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.urls import reverse
+from django.utils.http import (
+    urlsafe_base64_encode
+)
+
+from django.utils.encoding import (
+    force_bytes
+)
+
+from utils.email_service import (
+    send_password_reset_email
+)
 # Create your views here.
 def register(request):
 
@@ -105,4 +119,63 @@ def profile_view(request):
             'review_count': review_count,
             'wishlist_count': wishlist_count
         }
+    )
+
+
+def password_reset_request(request):
+
+    if request.method == "POST":
+
+        email = request.POST.get(
+            "email"
+        )
+
+        user = User.objects.filter(
+            email=email
+        ).first()
+
+        if user:
+
+            uid = urlsafe_base64_encode(
+                force_bytes(user.pk)
+            )
+
+            token = (
+                default_token_generator
+                .make_token(user)
+            )
+
+            reset_link = (
+                f"{request.scheme}://"
+                f"{request.get_host()}"
+                f"{reverse('password_reset_confirm', kwargs={
+                    'uidb64': uid,
+                    'token': token
+                })}"
+            )
+
+            try:
+
+                send_password_reset_email(
+                    user,
+                    reset_link
+                )
+
+                print(
+                    "PASSWORD RESET EMAIL SENT"
+                )
+
+            except Exception as e:
+
+                print(
+                    f"PASSWORD RESET ERROR: {e}"
+                )
+
+        return redirect(
+            'password_reset_done'
+        )
+
+    return render(
+        request,
+        'registration/password_reset_form.html'
     )
