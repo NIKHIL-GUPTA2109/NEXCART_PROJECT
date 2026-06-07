@@ -9,4 +9,5 @@ class ProductAdmin(admin.ModelAdmin):
         'category',
         'is_featured'
     ]
+    search_fields = ['name', 'category']
 admin.site.register(Review)

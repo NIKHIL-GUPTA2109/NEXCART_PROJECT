@@ -24,6 +24,15 @@
     <div class="login-card">
 
         <h2>Sign In 🤘</h2>
+        {% if messages %}
+        {% for message in messages %}
+            <div class="success-message">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+  
         {% if error %}
         <div class="error-message">
          {{ error }}
@@ -96,6 +105,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+setTimeout(() => {
+    const msg = document.querySelector('.success-message');
+    if(msg){
+        msg.style.display = 'none';
+    }
+}, 5000);
+
 </script>
 </body>
 </html>

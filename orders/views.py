@@ -7,7 +7,7 @@ from django.shortcuts import (
 )
 from django.core.mail import EmailMultiAlternatives, send_mail
 from django.contrib.auth.decorators import login_required
-
+from utils.email_service import send_order_confirmation_email
 from django.contrib import messages
 from urllib3 import request
 from django.template.loader import render_to_string
@@ -204,27 +204,29 @@ def checkout(request):
         product.stock -= 1
         product.save()
 
-        html_content = render_to_string(
-    'orders/emails/order_email.html',
-    {
-        'username': request.user.username,
-        'order': order
-    }
-    )
+        try:
 
-        email = EmailMultiAlternatives(
-        subject=f'🎉 Order Confirmed #{order.id}',
-        body='Your order has been placed.',
-        from_email=settings.EMAIL_HOST_USER,
-        to=[request.user.email]
-     )
+            send_order_confirmation_email(
+            request.user,
+            order
+            )
 
-        email.attach_alternative(
-        html_content,
-         "text/html"
-         )
+            print(
+                f"ORDER EMAIL SENT TO {request.user.email}"
+            )
 
-        # email.send()
+        except Exception as e:
+
+             print(
+                f"ORDER EMAIL ERROR: {e}"
+            )
+
+# Success Message
+
+        messages.success(
+                request,
+                f"🎉 Order #{order.id} placed successfully!"
+            )
         del request.session['buy_now_product_id']
 
         return redirect(
@@ -290,27 +292,29 @@ def checkout(request):
         item.product.save()
 
     cart_items.delete()
-    html_content = render_to_string(
-    'orders/emails/order_email.html',
-    {
-        'username': request.user.username,
-        'order': order
-    }
-)
+    try:
 
-    email = EmailMultiAlternatives(
-    subject=f'🎉 Order Confirmed #{order.id}',
-    body='Your order has been placed.',
-    from_email=settings.EMAIL_HOST_USER,
-    to=[request.user.email]
-    )
+        send_order_confirmation_email(
+         request.user,
+         order
+         )
 
-    email.attach_alternative(
-    html_content,
-    "text/html"
-    )
+        print(
+            f"ORDER EMAIL SENT TO {request.user.email}"
+        )
 
-    # email.send()
+    except Exception as e:
+
+        print(
+            f"ORDER EMAIL ERROR: {e}"
+        )
+
+# Success Message
+
+    messages.success(
+        request,
+                f"🎉 Order #{order.id} placed successfully!"
+        )
 
     return redirect(
         'order_confirmation',
@@ -368,7 +372,10 @@ def cancel_order(request, order_id):
 
         item.product.save()
 
-    
+    messages.success(
+        request,
+        "Your order has been cancelled successfully."
+    )
     return redirect(
         'order_detail',
         order_id=order.id
@@ -551,30 +558,29 @@ def payment_success(request):
     # =========================
     # EMAIL
     # =========================
+    try:
 
-    html_content = render_to_string(
-    'orders/emails/order_email.html',
-    {
-        'username': request.user.username,
-        'order': order
-    }
-)
+        send_order_confirmation_email(
+         request.user,
+         order
+         )
 
-    email = EmailMultiAlternatives(
-    subject=f'🎉 Order Confirmed #{order.id}',
-    body='Your order has been placed.',
-    from_email=settings.EMAIL_HOST_USER,
-    to=[request.user.email]
-    )
+        print(
+            f"ORDER EMAIL SENT TO {request.user.email}"
+        )
 
-    email.attach_alternative(
-    html_content,
-    "text/html"
-    )
+    except Exception as e:
 
-    # email.send()
+        print(
+            f"ORDER EMAIL ERROR: {e}"
+        )
 
-    
+# Success Message
+
+    messages.success(
+        request,
+                f"🎉 Order #{order.id} placed successfully!"
+        )
 
     return redirect(
         'order_confirmation',

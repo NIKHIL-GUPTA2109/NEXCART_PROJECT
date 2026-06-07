@@ -1,75 +1,110 @@
 <!DOCTYPE html>
+
 <html>
-<body style="font-family:Arial;background:#f4f4f4;padding:30px;">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body style="font-family: Arial, sans-serif; background:#f4f6f8; padding:30px;">
 
 <div style="
-max-width:600px;
-margin:auto;
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
+    max-width:600px;
+    margin:auto;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 20px rgba(0,0,0,.08);
 ">
 
-    <h1 style="color:#2563eb;">
+
+<div style="
+    background:linear-gradient(135deg,#2563eb,#1e40af);
+    color:white;
+    padding:30px;
+    text-align:center;
+">
+
+    <h1 style="margin:0;">
         🎉 Order Confirmed
     </h1>
 
-    <p>
-        Hi {{ username }},
+    <p style="margin-top:10px;">
+        Thank you for shopping with NexCart
     </p>
 
+</div>
+
+<div style="padding:30px;">
+
+    <h2>
+        Hello {{ username }} 👋
+    </h2>
+
     <p>
-        Your order has been successfully placed.
+        Great news! Your order has been successfully placed and is now being processed.
     </p>
+
+    <div style="
+        background:#f8fafc;
+        border-radius:10px;
+        padding:20px;
+        margin:20px 0;
+    ">
+
+        <h3 style="margin-top:0;">
+            📦 Order Details
+        </h3>
+
+        <p>
+            <strong>Order ID:</strong>
+            #{{ order.id }}
+        </p>
+
+        <p>
+            <strong>Total Amount:</strong>
+            ₹{{ order.total_price }}
+        </p>
+
+        <p>
+            <strong>Status:</strong>
+            Confirmed ✅
+        </p>
+
+    </div>
+
+    <p>
+        You can track your order anytime from your NexCart account.
+    </p>
+
+    <div style="text-align:center; margin:30px 0;">
+
+        <a href="https://nexcart-project.onrender.com/orders/orders/"
+           style="
+           background:#2563eb;
+           color:white;
+           text-decoration:none;
+           padding:12px 24px;
+           border-radius:8px;
+           display:inline-block;
+           font-weight:bold;
+        ">
+            View My Orders
+        </a>
+
+    </div>
 
     <hr>
 
-    <h3>Order Details</h3>
-
-    <p>
-        <strong>Order ID:</strong>
-        #{{ order.id }}
-    </p>
-    <p> 
-        <strong>Product Name:</strong>
-        {{ order.items.first.product.name }}
-    </p>
-    <p>
-        <strong>Total Amount:</strong>
-        ₹{{ order.total_price }}
+    <p style="color:#666;">
+        Thank you for choosing NexCart.
     </p>
 
-    <p>
-        <strong>Payment Method:</strong>
-        {{ order.payment_method }}
+    <p style="color:#666;">
+        Happy Shopping! 🛒
     </p>
 
-    <hr>
+</div>
 
-    <p>
-        We are preparing your order and will notify you once it ships.
-    </p>
-
-    <br>
-
-    <a href="http://127.0.0.1:8000/orders/history/"
-       style="
-       background:#2563eb;
-       color:white;
-       text-decoration:none;
-       padding:12px 24px;
-       border-radius:8px;
-       ">
-       View My Orders
-    </a>
-
-    <br><br>
-
-    <p>
-        Thank you for shopping with
-        <strong>NexCart</strong> ❤️
-    </p>
 
 </div>
 

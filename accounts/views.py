@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import RegisterForm
 from products.models import Product, Review
 from django.db.models import Q
@@ -12,43 +13,43 @@ from wishlist.models import Wishlist
 from orders.models import Order
 from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
+from utils.email_service import send_welcome_email
 # Create your views here.
 def register(request):
+
     if request.method == 'POST':
+
         form = RegisterForm(request.POST)
 
         if form.is_valid():
+
             user = form.save()
 
             try:
-                html_content = render_to_string(
-                    'emails/welcome_email.html',
-                    {'user': user}
+
+                send_welcome_email(
+                    user.email,
+                    user.username
                 )
 
-                email = EmailMultiAlternatives(
-                    subject='🎉 Welcome To NexCart',
-                    body='Welcome To NexCart',
-                    from_email=settings.EMAIL_HOST_USER,
-                    to=[user.email]
-                )
-
-                email.attach_alternative(
-                    html_content,
-                    "text/html"
-                )
-                # actually send the email
-                # email.send()
             except Exception as e:
-                # log/email errors shouldn't break registration
-                print(f"Email Error: {e}")
+                print(f"EMAIL ERROR: {e}")
+
+            messages.success(
+                request,
+                f"🎉 Thank you for registering with NexCart, {user.username}! Your account has been created successfully."
+            )
 
             return redirect('login')
 
     else:
         form = RegisterForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(
+        request,
+        'register.html',
+        {'form': form}
+    )
     
 def login_view(request):
     if request.method=='POST':

@@ -147,11 +147,12 @@
         {% if not order.is_cancelled %}
 
         <a
-            href="{% url 'cancel_order' order.id %}"
-            class="cancel-btn"
-        >
-            Cancel Order
-        </a>
+    href="{% url 'cancel_order' order.id %}"
+    class="cancel-btn"
+    onclick="return confirm('Are you sure you want to cancel this order?');"
+>
+    Cancel Order
+</a>
 
         {% endif %}
 
