@@ -215,3 +215,120 @@ def delete_review(request, review_id):
         'product_detail',
         product_id=product_id
     )
+
+from django.http import JsonResponse
+from .models import Product
+
+
+def ai_search(request):
+
+    query = request.GET.get(
+        'query',
+        ''
+    )
+
+    products = Product.objects.filter(
+        name__icontains=query
+    )[:5]
+
+    data = []
+
+    for product in products:
+
+        data.append({
+            "id": product.id,
+            'name': product.name,
+            'price': str(product.price)
+        })
+
+    return JsonResponse(data, safe=False)
+
+# products/views.py
+
+from django.http import JsonResponse
+from .models import Product
+def ai_recommend(request):
+
+    query = request.GET.get(
+        'q',
+        ''
+    ).lower()
+
+    products = Product.objects.none()
+
+    if "gaming laptop" in query:
+
+        products = Product.objects.filter(
+            name__iregex=r"gaming|rog|legion|alienware|predator|katana|victus|blade"
+        ).order_by(
+            "-price"
+        )[:5]
+
+    elif "laptop" in query:
+
+        products = Product.objects.filter(
+            name__icontains="laptop"
+        ).order_by(
+            "-price"
+        )[:5]
+
+    elif "phone" in query or "iphone" in query:
+
+        products = Product.objects.filter(
+            name__iregex=r"iphone|oneplus|galaxy"
+        )[:5]
+
+    elif "watch" in query:
+
+        products = Product.objects.filter(
+            name__icontains="watch"
+        )[:5]
+
+    elif "headphone" in query or "headset" in query:
+
+        products = Product.objects.filter(
+            name__iregex=r"headphone|headset|airpods"
+        )[:5]
+
+    elif "speaker" in query:
+
+        products = Product.objects.filter(
+            name__icontains="jbl"
+        )[:5]
+
+    elif "book" in query:
+
+        products = Product.objects.filter(
+            category="Books"
+        )[:5]
+
+    elif "shoe" in query or "sneaker" in query:
+
+        products = Product.objects.filter(
+            name__iregex=r"nike|adidas"
+        )[:5]
+
+    else:
+
+        products = Product.objects.order_by(
+            "-price"
+        )[:5]
+
+    data = []
+
+    for product in products:
+
+        data.append({
+
+            "id": product.id,
+            "name": product.name,
+            "price": str(product.price),
+            "image": product.image.url if product.image else ""
+
+        })
+
+    return JsonResponse(
+        data,
+        safe=False
+    )
+

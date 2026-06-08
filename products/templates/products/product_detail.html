@@ -114,6 +114,7 @@
                 {{ average_rating|floatformat:1 }}/5 ⭐
             </strong>
         </p>
+        
     {% else %}
         <p>
             No ratings yet.
@@ -252,6 +253,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+
+async function getReviewSummary(){
+
+    const response =
+    await fetch(
+
+        "/products/ai-review-summary/{{ product.id }}/"
+
+    );
+
+    const data =
+    await response.json();
+
+    document.getElementById(
+        "review-summary-result"
+    ).innerHTML = `
+
+        <div class="ai-summary-box">
+
+            ${data.summary}
+
+        </div>
+
+    `;
+}
+
+
 </script>
     </body>
 </html>

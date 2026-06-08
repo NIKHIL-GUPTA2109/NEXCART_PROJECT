@@ -116,7 +116,26 @@
     </a>
     {% endif %}
 </div>
+<div id="ai-chat-btn">
+    🤖 AI Assistant
+</div>
+<div id="chat-box">
 
+    <input
+    type="text"
+    id="user-query"
+    placeholder="Ask me anything... e.g. gaming laptop, best phone, watch"
+/>
+
+    <button
+        onclick="searchProducts()"
+    >
+        Ask
+    </button>
+
+    <div id="response"></div>
+
+</div>
 
 </section>
 
@@ -215,6 +234,198 @@ toggleBtn.addEventListener("click",()=>{
     }
 
 });
+const chatBtn =
+document.getElementById(
+    "ai-chat-btn"
+);
+
+const chatBox =
+document.getElementById(
+    "chat-box"
+);
+
+chatBtn.addEventListener(
+    "click",
+    function(){
+
+        if(
+            chatBox.style.display === "block"
+        ){
+
+            chatBox.style.display = "none";
+
+        }else{
+
+            chatBox.style.display = "block";
+
+        }
+    }
+);
+async function searchProducts(){
+
+    const query =
+    document.getElementById(
+        'user-query'
+    ).value.trim();
+
+    const responseDiv =
+    document.getElementById(
+        "response"
+    );
+
+    if(!query){
+
+        responseDiv.innerHTML =
+        `
+        <div class="ai-result">
+            ❌ Please enter a search query.
+        </div>
+        `;
+
+        return;
+    }
+
+    let url;
+
+    if(
+        query.toLowerCase().includes(
+            "compare"
+        )
+    ){
+
+        url =
+        `/products/compare-products/?q=${encodeURIComponent(query)}`;
+
+    }
+    else if(
+
+        query.toLowerCase().includes("recommend") ||
+        query.toLowerCase().includes("suggest") ||
+        query.toLowerCase().includes("best")
+
+    ){
+
+        url =
+        `/products/ai-recommend/?q=${encodeURIComponent(query)}`;
+
+    }
+    else{
+
+        url =
+        `/products/ai-search/?query=${encodeURIComponent(query)}`;
+
+    }
+
+    try{
+
+        const response =
+        await fetch(url);
+
+        const data =
+        await response.json();
+
+        responseDiv.innerHTML = "";
+
+        if(data.length === 0){
+
+            responseDiv.innerHTML = `
+                <div class="ai-result">
+                    ❌ No matching products found.
+                </div>
+            `;
+
+            return;
+        }
+
+        /* =====================
+           PRODUCT COMPARISON
+        ===================== */
+
+        if(
+            query.toLowerCase().includes(
+                "compare"
+            )
+        ){
+
+            responseDiv.innerHTML = `
+
+                <div class="ai-result">
+
+                    <strong>
+                        ⚔ Product Comparison
+                    </strong>
+
+                    <hr>
+
+                    <p>
+                        🛒 ${data[0].name}
+                        <br>
+                        ₹${data[0].price}
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        🛒 ${data[1].name}
+                        <br>
+                        ₹${data[1].price}
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+        /* =====================
+           SEARCH / RECOMMEND
+        ===================== */
+
+        data.forEach(product => {
+
+            responseDiv.innerHTML += `
+
+                <div class="ai-result">
+
+                    <a
+                        href="/products/product/${product.id}/"
+                        class="ai-product-link"
+                    >
+
+                        <strong>
+                             ${product.name}
+                        </strong>
+
+                        <br>
+
+                        <span>
+                            ₹${product.price}
+                        </span>
+
+                    </a>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+    catch(error){
+
+        responseDiv.innerHTML = `
+            <div class="ai-result">
+                ❌ Something went wrong.
+            </div>
+        `;
+
+        console.error(
+            error
+        );
+    }
+}
+
 
 </script>
 

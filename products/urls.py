@@ -23,4 +23,17 @@ path(
     views.category_products,
     name='category_products'
 ),
+# products/urls.py
+
+path(
+    'ai-search/',
+    views.ai_search,
+    name='ai_search'
+),
+path(
+    'ai-recommend/',
+    views.ai_recommend,
+    name='ai_recommend'
+),
+
 ]

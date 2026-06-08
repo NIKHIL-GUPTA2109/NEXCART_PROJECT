@@ -846,7 +846,37 @@ body{
 
     margin-top:15px;
 }
+.review-summary-btn{
 
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin-top:15px;
+}
+
+.ai-summary-box{
+
+    margin-top:20px;
+
+    padding:20px;
+
+    background:#f8fafc;
+
+    border-radius:12px;
+
+    white-space:pre-wrap;
+
+    line-height:1.7;
+}
 /* =========================
    MOBILE FIX
 ========================= */
