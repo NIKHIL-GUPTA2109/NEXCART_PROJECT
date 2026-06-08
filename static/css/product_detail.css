@@ -751,6 +751,22 @@ body{
     box-sizing:border-box;
 }
 
+.purchase-required{
+
+    background:#fff3cd;
+
+    color:#856404;
+
+    padding:15px 20px;
+
+    border-radius:10px;
+
+    border:1px solid #ffeeba;
+
+    margin:20px 0;
+
+    font-weight:600;
+}
 .review-form-container h3{
 
     margin-bottom:20px;

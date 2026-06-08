@@ -56,9 +56,13 @@ def product_detail(request, product_id):
     )['rating__avg']
 
     user_review = None
-
+    has_purchased = False
     if request.user.is_authenticated:
-
+        has_purchased = OrderItem.objects.filter(
+        order__user=request.user,
+        product=product,
+        order__is_cancelled=False
+    ).exists()
         user_review = Review.objects.filter(
             user=request.user,
             product=product
@@ -72,7 +76,8 @@ def product_detail(request, product_id):
             'reviews': reviews,
             'average_rating': average_rating,
             'review_form': ReviewForm(),
-            'user_review': user_review
+            'user_review': user_review,
+            'has_purchased': has_purchased,
         }
     )
 

@@ -122,6 +122,19 @@
 
     {% if user.is_authenticated %}
 
+    {% if has_purchased %}
+
+        <!-- Review Form Here -->
+
+    {% else %}
+
+        <div class="purchase-required">
+
+            🛒 You need to purchase this product before writing a review.
+
+        </div>
+
+    {% endif %}
     <div class="review-form-container">
 
         {% if user_review %}
