@@ -150,8 +150,11 @@
     <div class="product-card">
 
         <div class="product-image">
-            <img src="{{ product.image.url }}"
+            <a href="{% url 'product_detail' product.id %}">
+                <img src="{{ product.image.url }}"
                  alt="{{ product.name }}">
+            </a>
+            
         </div>
 
         <div class="product-info">
@@ -160,9 +163,7 @@
 
             <p class="price">₹{{ product.price }}</p>
 
-            <a href="{% url 'product_detail' product.id %}">
-                <button>View Product</button>
-            </a>
+            
 
         </div>
 

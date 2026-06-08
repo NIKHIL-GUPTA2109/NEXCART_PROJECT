@@ -81,7 +81,12 @@
         Buy Now
     </button>
 </a>
-
+        <a
+        href="{% url 'add_to_wishlist' product.id %}"
+        class="wishlist-detail-btn"
+    >
+        ❤️ Wishlist
+    </a>
 </div>
         <a
             href="{% url 'product_list' %}"
