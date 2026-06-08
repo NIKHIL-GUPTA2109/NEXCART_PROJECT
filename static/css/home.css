@@ -717,6 +717,18 @@ gap:20px;
 
         height:260px;
     }
+    #ai-chat-btn{
+
+        bottom:12px;
+
+        right:12px;
+
+        padding:8px 14px;
+
+        font-size:13px;
+
+        border-radius:25px;
+    }
 }
 
 
@@ -899,6 +911,6 @@ padding:25px;
     }
 
     .hero-content p{
-        font-size:0.5rem;
+        font-size:0.6rem;
     }
 }
