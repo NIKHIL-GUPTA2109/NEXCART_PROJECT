@@ -135,7 +135,14 @@ body{
 /* =========================
    PROFILE INFO
 ========================= */
-
+.success-message{
+    background:#16a34a;
+    color:white;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:20px;
+    text-align:center;
+}
 .profile-card h2{
     color:var(--text);
     margin-bottom:15px;
@@ -243,59 +250,94 @@ body{
    TABLET
 ========================= */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
     body{
-        padding:20px 15px;
+        padding:20px 12px;
     }
 
-    .profile-card{
-        padding:25px;
-    }
-
-    .profile-avatar{
-        width:90px;
-        height:90px;
-        font-size:34px;
-    }
-
-    .stats-container{
-        grid-template-columns:1fr;
-    }
-
-    .profile-actions{
-        grid-template-columns:1fr;
-    }
-
-    .profile-actions a{
-        font-size:16px;
-        padding:15px;
-    }
-
-    .welcome-title{
-        font-size:30px;
-    }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:480px){
-
-    .welcome-title{
-        font-size:24px;
+    .profile-container{
+        width:100%;
     }
 
     .profile-card{
         padding:20px;
     }
 
-    .profile-card p{
-        font-size:16px;
+    .profile-name{
+        font-size:1.5rem;
     }
 
-    .stat-card h3{
-        font-size:28px;
+    .profile-email,
+    .profile-joined{
+        font-size:.9rem;
+    }
+
+    .stats-container{
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+    }
+
+    .stat-card{
+        padding:15px 10px;
+    }
+
+    .action-buttons{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+
+    .action-btn{
+        width:100%;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:480px){
+
+    body{
+        padding:12px 8px;
+    }
+
+    .profile-card{
+        padding:15px;
+    }
+
+    .profile-avatar{
+        width:70px;
+        height:70px;
+        font-size:1.8rem;
+    }
+
+    .profile-name{
+        font-size:1.3rem;
+    }
+
+    .profile-email,
+    .profile-joined{
+        font-size:.8rem;
+        word-break:break-word;
+    }
+
+    .stats-container{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+
+    .stat-card h2{
+        font-size:1.5rem;
+    }
+
+    .stat-card p{
+        font-size:.9rem;
+    }
+
+    .action-btn{
+        padding:14px;
+        font-size:.95rem;
     }
 }

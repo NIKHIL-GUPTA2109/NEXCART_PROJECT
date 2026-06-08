@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Edit Profile</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static "css/edit_profile.css" %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <h1>Edit Profile</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>First Name</label>
+        <input
+            type="text"
+            name="first_name"
+            value="{{ request.user.first_name }}"
+        >
+    </div>
+
+    <div class="form-group">
+        <label>Last Name</label>
+        <input
+            type="text"
+            name="last_name"
+            value="{{ request.user.last_name }}"
+        >
+    </div>
+
+    <div class="form-group">
+        <label>Phone Number</label>
+        <input
+            type="text"
+            name="phone_number"
+            value="{{ profile.phone_number }}"
+        >
+    </div>
+
+    <div class="form-group">
+        <label>Age</label>
+        <input
+            type="number"
+            name="age"
+            value="{{ profile.age }}"
+        >
+    </div>
+
+    <div class="form-group">
+        <label>Address</label>
+        <textarea
+            name="address"
+        >{{ profile.address }}</textarea>
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group">
+            <label>City</label>
+            <input
+                type="text"
+                name="city"
+                value="{{ profile.city }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label>State</label>
+            <input
+                type="text"
+                name="state"
+                value="{{ profile.state }}"
+            >
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Pincode</label>
+        <input
+            type="text"
+            name="pincode"
+            value="{{ profile.pincode }}"
+        >
+    </div>
+
+    <button type="submit" class="save-btn">
+        💾 Save Changes
+    </button>
+
+</form>
+</div>
+</div>
+<script>
+setTimeout(() => {
+
+    const msg =
+        document.querySelector(
+            '.success-message'
+        );
+
+    if(msg){
+        msg.style.display='none';
+    }
+
+},5000);
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(
+            localStorage.getItem(
+                "theme"
+            ) === "dark"
+        ){
+            document.body.classList.add(
+                "dark-theme"
+            );
+        }
+
+    }
+);
+</script>
+   
+    </body>

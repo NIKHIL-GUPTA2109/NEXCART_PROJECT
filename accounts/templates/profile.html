@@ -14,6 +14,13 @@
 </head>
 
 <body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="success-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 
 <div class="profile-container">
 
@@ -84,7 +91,7 @@
 
     <div class="profile-actions">
 
-        <a href="#">
+        <a href="{% url 'edit_profile' %}">
             👤 Edit Profile
         </a>
 
@@ -111,6 +118,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+setTimeout(() => {
+    const msg = document.querySelector('.success-message');
+
+    if(msg){
+        msg.remove();
+    }
+}, 3000);
 </script>
 </body>
 </html>

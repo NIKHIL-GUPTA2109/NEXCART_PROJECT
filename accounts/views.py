@@ -179,3 +179,64 @@ def password_reset_request(request):
         request,
         'registration/password_reset_form.html'
     )
+
+from .models import UserProfile
+@login_required
+def edit_profile(request):
+
+    profile, created = UserProfile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+
+        request.user.first_name = request.POST.get(
+            'first_name'
+        )
+
+        request.user.last_name = request.POST.get(
+            'last_name'
+        )
+
+        request.user.save()
+
+        profile.phone_number = request.POST.get(
+            'phone_number'
+        )
+
+        profile.age = request.POST.get(
+            'age'
+        )
+
+        profile.address = request.POST.get(
+            'address'
+        )
+
+        profile.city = request.POST.get(
+            'city'
+        )
+
+        profile.state = request.POST.get(
+            'state'
+        )
+
+        profile.pincode = request.POST.get(
+            'pincode'
+        )
+
+        profile.save()
+
+        messages.success(
+            request,
+            "✅ Profile updated successfully."
+        )
+
+        return redirect('profile')
+
+    return render(
+        request,
+        'edit_profile.html',
+        {
+            'profile': profile
+        }
+    )
