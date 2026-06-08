@@ -52,10 +52,15 @@ class Review(models.Model):
     )
 
     class Meta:
-        unique_together = (
-            'user',
-            'product'
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    'user',
+                    'product'
+                ],
+                name='unique_review_per_user'
+            )
+        ]
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name}"

@@ -4,7 +4,8 @@ from .models import Product
 from .models import Product, Review
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
+from orders.models import OrderItem
 def product_list(request):
 
     products = Product.objects.all()
@@ -43,22 +44,35 @@ def product_detail(request, product_id):
         Product,
         id=product_id
     )
+
     reviews = Review.objects.filter(
-    product=product
-).select_related('user')
+        product=product
+    ).select_related('user')
+
     average_rating = Review.objects.filter(
-    product=product
-).aggregate(
-    Avg('rating')
-)['rating__avg']
+        product=product
+    ).aggregate(
+        Avg('rating')
+    )['rating__avg']
+
+    user_review = None
+
+    if request.user.is_authenticated:
+
+        user_review = Review.objects.filter(
+            user=request.user,
+            product=product
+        ).first()
+
     return render(
         request,
         'products/product_detail.html',
         {
-        'product': product,
-        'reviews': reviews,
-        'average_rating': average_rating,
-        'review_form': ReviewForm()
+            'product': product,
+            'reviews': reviews,
+            'average_rating': average_rating,
+            'review_form': ReviewForm(),
+            'user_review': user_review
         }
     )
 
@@ -74,6 +88,24 @@ def add_review(
         id=product_id
     )
 
+    purchased = OrderItem.objects.filter(
+        order__user=request.user,
+        product=product,
+        order__is_cancelled=False
+    ).exists()
+
+    if not purchased:
+
+        messages.error(
+            request,
+            "You can review only products you have purchased."
+        )
+
+        return redirect(
+            'product_detail',
+            product_id
+        )
+
     if request.method == 'POST':
 
         form = ReviewForm(
@@ -82,7 +114,7 @@ def add_review(
 
         if form.is_valid():
 
-            Review.objects.update_or_create(
+            review, created = Review.objects.update_or_create(
 
                 user=request.user,
 
@@ -97,6 +129,20 @@ def add_review(
                     form.cleaned_data['comment']
                 }
             )
+
+            if created:
+
+                messages.success(
+                    request,
+                    "Review submitted successfully."
+                )
+
+            else:
+
+                messages.success(
+                    request,
+                    "Review updated successfully."
+                )
 
     return redirect(
         'product_detail',
@@ -118,4 +164,49 @@ def category_products(
             'products': products,
             'category': category
         }
+    )
+@login_required
+def edit_review(request, review_id):
+
+    review = get_object_or_404(
+        Review,
+        id=review_id,
+        user=request.user
+    )
+
+    if request.method == 'POST':
+
+        review.rating = request.POST['rating']
+        review.comment = request.POST['comment']
+
+        review.save()
+
+        return redirect(
+            'product_detail',
+            product_id=review.product.id
+        )
+
+    return render(
+        request,
+        'products/edit_review.html',
+        {
+            'review': review
+        }
+    )
+@login_required
+def delete_review(request, review_id):
+
+    review = get_object_or_404(
+        Review,
+        id=review_id,
+        user=request.user
+    )
+
+    product_id = review.product.id
+
+    review.delete()
+
+    return redirect(
+        'product_detail',
+        product_id=product_id
     )

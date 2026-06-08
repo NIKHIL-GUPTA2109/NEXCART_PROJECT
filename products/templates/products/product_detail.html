@@ -124,30 +124,41 @@
 
     <div class="review-form-container">
 
-        <h3>
-            Write A Review
-        </h3>
+        {% if user_review %}
+    <h3>✏️ Update Your Review</h3>
+{% else %}
+    <h3>⭐ Write A Review</h3>
+{% endif %}
 
         <form
-            method="post"
-            action="{% url 'add_review' product.id %}"
-        >
+    method="post"
+    action="{% url 'add_review' product.id %}"
+>
 
-            {% csrf_token %}
-
-           <div class="review-form-container">
-
-    <form method="post" action="{% url 'add_review' product.id %}">
-        {% csrf_token %}
-
+    {% csrf_token %}
         <div class="form-group">
             <label>Rating</label>
-            {{ review_form.rating }}
+            <select name="rating">
+
+    <option value="1" {% if user_review.rating == 1 %}selected{% endif %}>⭐</option>
+
+    <option value="2" {% if user_review.rating == 2 %}selected{% endif %}>⭐⭐</option>
+
+    <option value="3" {% if user_review.rating == 3 %}selected{% endif %}>⭐⭐⭐</option>
+
+    <option value="4" {% if user_review.rating == 4 %}selected{% endif %}>⭐⭐⭐⭐</option>
+
+    <option value="5" {% if user_review.rating == 5 %}selected{% endif %}>⭐⭐⭐⭐⭐</option>
+
+</select>
         </div>
 
         <div class="form-group">
             <label>Your Review</label>
-            {{ review_form.comment }}
+            <textarea
+    name="comment"
+    rows="5"
+>{{ user_review.comment|default:'' }}</textarea>
         </div>
 
         <button type="submit" class="review-btn">
@@ -189,6 +200,23 @@
             <small>
                 {{ review.created_at|date:"d M Y" }}
             </small>
+            {% if review.user == request.user %}
+
+        <div class="review-actions">
+
+        
+
+        <a
+            href="{% url 'delete_review' review.id %}"
+            class="delete-review-btn"
+            onclick="return confirm('Delete this review?')"
+        >
+            🗑 Delete
+        </a>
+
+    </div>
+
+    {% endif %}
 
         </div>
 
