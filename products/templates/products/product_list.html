@@ -100,12 +100,13 @@
 >
     ❤️ Wishlist
 </a>
-
+        <a href="{% url 'product_detail' product.id %}">
         <img
             src="{{ product.image.url }}"
             alt="{{ product.name }}"
             class="product-image"
         >
+        </a>
 
         <div class="product-info">
 
